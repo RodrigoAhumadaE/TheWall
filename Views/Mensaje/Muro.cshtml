@@ -1,0 +1,37 @@
+@await Html.PartialAsync("_Navbar")
+@model MensajesComentarios
+<div class="muro">
+    @await Html.PartialAsync("_NuevoMensaje", @Model.mensaje)
+    @foreach(Mensaje mensaje in @Model.mensajes){
+        <div class="mensaje">
+            <div class="encabezado">
+                <h4>@mensaje.Creador.Nombre @mensaje.Creador.Apellido</h4>
+                <h5 class="pl-2">@mensaje.FechaCreacion</h5>
+            </div>            
+            <h5>@mensaje.MensajeTexto</h5>
+            @foreach(Comentario comentario in mensaje.Comentarios){
+                <div class="comentario gris">
+                    <div class="encabezado">
+                        <h4>@comentario.Usuario.Nombre @comentario.Usuario.Apellido</h4>
+                        <h5>@comentario.FechaCreacion</h5>
+                    </div>                    
+                    <p >@comentario.ComentarioText</p>
+                </div>                
+            }
+            <div class="comentario">
+                <form class="coment" method="POST" asp-controller="Mensaje" asp-action="ProcesaComentario">
+                    <div class="item">
+                        <label for="ComentarioText">Publica un Comentario</label>
+                        <textarea name="ComentarioText" rows="3" required></textarea>
+                    </div>
+                    <input type="hidden" name="MensajeId" value="@mensaje.MensajeId">
+                    @{int usuarioId = (int)Context.Session.GetInt32("id");}
+                    <input type="hidden" name="UsuarioId" value="@usuarioId">
+                    <div class="boton end">
+                        <button class="btn btn-primary btn-sm">Publicar</button>
+                    </div>    
+                </form>
+            </div>            
+        </div>
+    }
+</div>

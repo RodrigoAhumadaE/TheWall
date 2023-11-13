@@ -1,0 +1,11 @@
+<nav>
+    <div class="titulo">
+        <h2>Coding Dojo Wall</h2>
+    </div>
+    <div class="logout">
+        <h4>Bienvenido @Context.Session.GetString("nombreUsuario")</h4>
+        <a asp-controller="Usuario" asp-action="Logout">
+            Logout
+        </a>
+    </div>
+</nav>

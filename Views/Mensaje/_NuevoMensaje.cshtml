@@ -1,0 +1,18 @@
+@{
+    int usuarioId = (int)Context.Session.GetInt32("id");
+}
+@model Mensaje
+<form method="POST" asp-controller="Mensaje" asp-action="ProcesaMensaje">
+    <div class="item">
+        <label asp-for="MensajeTexto">Publica un Mensaje</label>
+        <textarea asp-for="MensajeTexto" rows="5"></textarea>
+    </div>
+    <div class="error">
+        <span asp-validation-for="MensajeTexto"></span>
+    </div>
+     
+    <input type="hidden" asp-for="UsuarioId" value="@usuarioId">
+    <div class="boton end">
+        <button class="btn btn-primary btn-sm">Publicar</button>
+    </div>    
+</form>
