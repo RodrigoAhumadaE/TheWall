@@ -23,7 +23,7 @@ public class MensajeController : Controller{
         HttpContext.Session.SetString("nombreUsuario", $"{usuario.Nombre} {usuario.Apellido}");
         // List<Mensaje> listaMensajes = _context.Mensajes.Include(m => m.Creador).Include(m => m.Comentarios).ThenInclude(m => m.Usuario).ToList();
         MensajesComentarios mensCom = new MensajesComentarios(){
-            mensajes = _context.Mensajes.Include(m => m.Creador).Include(m => m.Comentarios).ThenInclude(m => m.Usuario).ToList(),
+            mensajes = _context.Mensajes.Include(m => m.Creador).Include(m => m.Comentarios).ThenInclude(m => m.Usuario).OrderByDescending(m => m.MensajeId).ToList(),
         };
         return View("Muro", mensCom);
     }
@@ -51,7 +51,7 @@ public class MensajeController : Controller{
             RedirectToAction("Muro");
         }
         MensajesComentarios mensCom = new MensajesComentarios(){
-            mensajes = _context.Mensajes.Include(m => m.Creador).Include(m => m.Comentarios).ThenInclude(m => m.Usuario).ToList(),
+            mensajes = _context.Mensajes.Include(m => m.Creador).Include(m => m.Comentarios).ThenInclude(m => m.Usuario).OrderByDescending(m => m.MensajeId).ToList(),
         };
         return View("Muro", mensCom);
     }
